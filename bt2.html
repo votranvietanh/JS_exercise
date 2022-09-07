@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vẽ đồ thị nhập liệu từ form</title>
+    <style>
+        label.space {
+            min-width: 10px;
+        }
+
+        .form {
+
+            margin-bottom: 5px;
+        }
+
+        td:nth-child(2) {
+            width: 200px;
+            /* background-color: red; */
+
+        }
+
+        .change {
+            position: relative;
+            display: flex;
+            align-items: center;
+            height: 20px;
+        }
+
+        .percent.active {
+            position: absolute;
+            right: 5px;
+            color: #fff;
+        }
+    </style>
+</head>
+<div id="content"></div>
+<button onclick="chart()">vẽ đồ thị</button>
+<div class="renChart">
+    <table border="1">
+
+    </table>
+</div>
+
+<body>
+    <script>
+        var myArray = new Array();
+        myArray[0] = "Anh";
+        myArray[1] = "Phap";
+        myArray[2] = "Duc";
+        myArray[3] = "Nga";
+        myArray[4] = "Nhat";
+        var render = myArray.map((item, index) => {
+            return `
+            <div class="form">
+            <label class="space" for="${item}">${item}:</label>
+            <input id="${item}" name="${item}" type="text" value=""><br>
+            </div>
+            `
+        }).join('');
+        document.getElementById('content').innerHTML = render;
+        var creTable = document.createElement('table');
+        function chart() {
+            var renderChart = myArray.map((item, index) => {
+                var getID = Number(document.getElementById(`${item}`).value)
+                console.log(getID);
+                return `
+                
+            <tr>
+                <td>${item}</td> 
+                <td id="change" class="change">
+                  <div class="progress-bar" style="width: ${getID}%; height: 100%; background-color: red;"></div>
+                  <div class="percent ${getID >= 100 ? 'active' : ''}">${getID}%</div>
+                </td>
+                </tr>
+            `
+            }).join('')
+            document.querySelector('table').innerHTML = renderChart;
+        }
+    </script>
+
+</body>
+
+</html>

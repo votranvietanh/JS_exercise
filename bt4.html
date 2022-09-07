@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vẽ tam giác</title>
+   
+</head>
+
+<body>
+    <div class="container">
+
+        <input id="Cun" type="text">
+        <button id="CiCi">Vẽ tam giác</button>
+        <div class="Cun-ko-co-duoc-cici"></div>
+    </div>
+</body>
+<script>
+    const CiCi = document.querySelector(".Cun-ko-co-duoc-cici");
+    const btnSubmit = document.querySelector("#CiCi");
+    const input = document.querySelector("#Cun")
+
+    btnSubmit.addEventListener("click", () => {
+        let number = parseInt(input.value)
+        if (!number) {
+            console.log('sai roi');
+            return;
+        }
+        CiCi.innerHTML = ''
+        let markup = "";
+        for (let i = 1; i <= number; i++) {
+            let subStr = ""
+            for (let j = i; j >= 1; j--) {
+                subStr += j % 10 + " ";
+            }
+            markup += ` <div>${subStr}</div>`;
+        }
+        // CiCi.insertAdjacentHTML("beforeBegin", (markup));
+        CiCi.innerHTML = markup;
+        input.value = ""
+    })
+
+</script>
+
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vẽ tam giác 2</title>
+    <style>
+        .container {
+            text-align: center;
+            
+        }
+        div{
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <input id="Cun" type="text">
+        <button id="CiCi">Vẽ tam giác 2</button>
+        <div class="Cun-ko-co-duoc-cici"></div>
+    </div>
+</body>
+<script>
+    const CiCi = document.querySelector(".Cun-ko-co-duoc-cici");
+    const btnSubmit = document.querySelector("#CiCi");
+    const input = document.querySelector("#Cun")
+
+    btnSubmit.addEventListener("click", () => {
+        let number = parseInt(input.value)
+        if (!number) {
+            console.log('sai roi');
+            return;
+        }
+        const container = document.querySelector('.Cun-ko-co-duoc-cici');
+        CiCi.innerHTML = ''
+        
+        let arrSize = input.value;
+        let row = new Array(arrSize + 10);
+        for (let i = 0; i <= arrSize + 8; ++i) row[i] = new Array(arrSize + 10);
+        for (let i = 0; i < arrSize + 8; ++i) {
+            for (let j = 0; j < arrSize + 8; ++j) row[i][j] = 0;
+        }
+
+        row[1][1] = 1;
+        row[2][1] = row[2][2] = 2;
+        for (let i = 1; i <= arrSize; ++i) {
+            if (i >= 3) {
+                for (let j = 1; j <= i; ++j) {
+                    if (j === 1 || j === i) {
+                        row[i][j] = row[i - 1][j === 1 ? j : j - 1] + 1;
+                    } else {
+                        row[i][j] = row[i - 2][j - 1] + 1;
+                    }
+                    row[i][j] = row[i][j] % 10;
+                }
+            }
+            const tmp = [];
+            for (let j = 1; j <= i; ++j) {
+                if (row[i][j] === undefined) continue;
+                tmp.push(row[i][j]);
+            }
+            const newEl = document.createElement('div');
+            newEl.innerText = tmp.join(' ');
+            container.appendChild(newEl);
+        }
+        input.value = ""
+    })
+
+</script>
+
+</html>

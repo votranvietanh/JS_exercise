@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Máy tính cầm tay (JS)</title>
+    <style>
+        .inpNum1,
+        .inpNum2,
+        .ans {
+            width: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <input class="inpNum1" type="text">
+
+        <button class="btnAdd">+</button>
+        <button class="btnMinus">-</button>
+        <button class="btnMult">*</button>
+        <button class="btnDiv">/</button>
+        <button class="btnPower">^</button>
+        <input class="inpNum2" type="text">
+
+        <span>=</span> <input class="ans" disabled value="0">
+    </div>
+</body>
+<script>
+    var inp1 = document.querySelector('.inpNum1')
+    var inp2 = document.querySelector('.inpNum2')
+    var ans = document.querySelector('.ans')
+
+    var btnAdd = document.querySelector('.btnAdd')
+    var btnMinus = document.querySelector('.btnMinus')
+    var btnMult = document.querySelector('.btnMult')
+    var btnDiv = document.querySelector('.btnDiv')
+    var btnPower = document.querySelector('.btnPower')
+
+    btnAdd.addEventListener('click', () => {
+        ans.value = Number(inp1.value) + Number(inp2.value)
+
+    })
+    btnMinus.addEventListener('click', () => {
+        ans.value = Number(inp1.value) - Number(inp2.value)
+
+    })
+    btnMult.addEventListener('click', () => {
+        ans.value = Number(inp1.value) * Number(inp2.value)
+
+    })
+    btnDiv.addEventListener('click', () => {
+        ans.value = (Number(inp1.value) / Number(inp2.value)).toFixed(2)
+
+    })
+    btnPower.addEventListener('click', () => {
+        ans.value = Math.pow(Number(inp1.value), Number(inp2.value))
+
+    })
+</script>
+
+</html>

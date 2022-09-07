@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar</title>
+    <style>
+        td {
+            font-size: 20px;
+            width: 30px;
+        }
+
+        div {
+            display: inline-block;
+        }
+
+        .firstRow {
+            position: relative;
+        }
+
+        .currentTime p {
+            position: absolute;
+            top: 5px;
+            right: 30%;
+            margin: 0;
+            font-size: 15px;
+
+
+        }
+
+        .prev {
+            position: absolute;
+            top: 0;
+            left: 0;
+            cursor: pointer;
+        }
+
+        .next {
+            position: absolute;
+            right: 0;
+            top: 0;
+            cursor: pointer;
+
+
+        }
+
+        .date {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .container{
+            width: 245px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="calendar"> < <a href="mailto:votranvietanhh@gmail.com">votranvietanhh@gmail.com</a> 
+            <table border="1" >
+                <tr>
+                    <td class="firstRow" colspan="7">
+                        <div class="prev">
+                            &#10094; Prev 
+                        </div>
+                        <div class="currentTime">
+                            <p></p>
+                        </div>
+                        <div class="next">
+                            Next­ &#10097;
+                        </div>
+                    </td>
+                </tr>
+                <tr class="date">
+                    <td class="day-name">SU</td>
+                    <td class="day-name">M</td>
+                    <td class="day-name">TU</td>
+                    <td class="day-name">W</td>
+                    <td class="day-name">Th</td>
+                    <td class="day-name">F</td>
+                    <td class="day-name">Sa</td>>
+                </tr>
+                <tr class="row2 date">
+
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</body>
+<script>
+    let monthYear = document.querySelector('.currentTime p');
+    let currentMonth = new Date().getMonth();
+    let currentYear = new Date().getFullYear();
+    let btnNext = document.querySelector('.next')
+    let btnPrev = document.querySelector('.prev')
+    let dateEle = document.querySelector('.row2');
+
+
+    function displayInfo() {
+        let currentMonthName = new Date(
+            currentYear,
+            currentMonth
+        ).toLocaleString('en-us', { month: 'long' })
+
+        monthYear.innerHTML = `${currentMonthName}  ${currentYear}`
+        renderDate();
+    }
+    function getStartDayInMonth() {
+        return new Date(currentYear, currentMonth, 1).getDay();
+    }
+
+    function getDaysInMonth() {
+        return new Date(currentYear, currentMonth + 1, 0).getDate();
+    }
+
+    function activeCurrentDay(day) {
+        let day1 = new Date().toDateString();
+        let day2 = new Date(currentYear, currentMonth, day).toDateString();
+        return day1 == day2 ? 'active' : '';
+    }
+
+
+    //------renderDate 
+    function renderDate() {
+        let daysInMonth = getDaysInMonth();
+        let startDay = getStartDayInMonth();
+
+        dateEle.innerHTML = '';
+        // <div class="day"></div>
+        for (let i = 0; i < startDay; i++) {
+            dateEle.innerHTML += `
+            
+            <td class="day"> </td>
+        `;
+        }
+
+        for (let i = 0; i < daysInMonth; i++) {
+            dateEle.innerHTML += `
+            <td class="day ${activeCurrentDay(i + 1)}">${i + 1}</td>
+        `;
+        }
+    }
+    //---------------------------------
+    //next button
+    btnNext.addEventListener('click', function () {
+        if (currentMonth == 11) {
+            currentMonth = 0;
+            currentYear++;
+        } else {
+            currentMonth++;
+        }
+        displayInfo();
+    });
+    ///prev
+    btnPrev.addEventListener('click', function () {
+        if (currentMonth == 0) {
+            currentMonth = 11;
+            currentYear--;
+        } else {
+            currentMonth--;
+        }
+        displayInfo();
+    });
+    window.onload = displayInfo;
+</script>
+
+</html>

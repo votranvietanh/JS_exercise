@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>đồng hồ bấm giờ</title>
+    <style>
+        .wrapper p{
+            margin: 0;
+            font-size: 50px;
+            font-weight: 700;
+        }
+        .wrapper button{
+            font-size: 20px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">    
+        <p><span id="seconds">00</span>:<span id="milis">00</span></p>
+        <button id="button-start">Bắt đầu</button>
+        <button id="button-stop">Dừng lại</button>
+        <button id="button-reset">Reset</button>
+    </div>
+    <script>
+            var seconds = 00;
+            var milis = 00;
+            var appendmilis = document.getElementById("milis")
+            var appendSeconds = document.getElementById("seconds")
+            var buttonStart = document.getElementById('button-start');
+            var buttonStop = document.getElementById('button-stop');
+            var buttonReset = document.getElementById('button-reset');
+            var Interval;
+
+            buttonStart.onclick = function () {
+
+                clearInterval(Interval);
+                Interval = setInterval(startTimer, 10);
+            }
+
+            buttonStop.onclick = function () {
+                clearInterval(Interval);
+            }
+
+
+            buttonReset.onclick = function () {
+                clearInterval(Interval);
+                milis = "00";
+                seconds = "00";
+                appendmilis.innerHTML = milis;
+                appendSeconds.innerHTML = seconds;
+            }
+
+
+
+            function startTimer() {
+                milis++;
+
+                if (milis <= 9) {
+                    appendmilis.innerHTML = "0" + milis;
+                }
+
+                if (milis > 9) {
+                    appendmilis.innerHTML = milis;
+
+                }
+
+                if (milis > 99) {
+                    seconds++;
+                    appendSeconds.innerHTML = "0" + seconds;
+                    milis = 0;
+                    appendmilis.innerHTML = "0" + 0;
+                }
+
+                if (seconds > 9) {
+                    appendSeconds.innerHTML = seconds;
+                }
+
+            }
+    </script>
+</body>
+
+</html>
